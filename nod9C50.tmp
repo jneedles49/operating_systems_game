@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://clod3egitgfpo"]
+
+[ext_resource type="Script" path="res://obj_mainScreen.gd" id="1_jlocy"]
+[ext_resource type="Script" path="res://LineEdit_user.gd" id="2_f2aqn"]
+[ext_resource type="Script" path="res://Control_prompt.gd" id="3_7xuij"]
+[ext_resource type="Script" path="res://Label_prompt.gd" id="3_ikflt"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="obj_mainScreen" type="Polygon2D" parent="."]
+position = Vector2(121, 90)
+scale = Vector2(313.777, 10.1587)
+color = Color(0, 0, 0.501961, 1)
+polygon = PackedVector2Array(0.0162897, -0.39375, 2.74717, -0.492188, 2.7421, 37.9969, 0.0108598, 38.1937)
+script = ExtResource("1_jlocy")
+
+[node name="LineEdit_user" type="LineEdit" parent="."]
+offset_left = 201.0
+offset_top = 317.0
+offset_right = 879.0
+offset_bottom = 437.0
+script = ExtResource("2_f2aqn")
+
+[node name="Control_prompt" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_7xuij")
+
+[node name="Label_prompt" type="Label" parent="Control_prompt"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 117.0
+offset_right = 926.0
+offset_bottom = 303.0
+text = "This is a test"
+autowrap_mode = 2
+script = ExtResource("3_ikflt")
+
+[connection signal="text_submitted" from="LineEdit_user" to="obj_mainScreen" method="_on_line_edit_user_text_submitted"]

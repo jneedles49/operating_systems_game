@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwj7jw475rc08"]
+
+[ext_resource type="Script" path="res://Q1Sz1_script.gd" id="1_soo2m"]
+[ext_resource type="Script" path="res://LineEdit_user.gd" id="2_gifui"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_soo2m")
+
+[node name="obj_mainScreen" type="Polygon2D" parent="."]
+position = Vector2(126, 49)
+scale = Vector2(313.777, 10.7118)
+color = Color(0.0855214, 0.323137, 0.999976, 1)
+polygon = PackedVector2Array(-0.372876, -2.14716, 3.23797, -1.87032, 3.22203, 52.2705, -0.356941, 52.5505, -0.372876, 25.1042)
+
+[node name="Label_prompt" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 1109.0
+offset_bottom = 343.0
+text = "
+BA: 600; Sz: 1000 → BA: 1500; Sz: 700 → BA: 3600; Sz: 1500 → BA: 9200; Sz: 300
+Use the next fit policy to update the list
+
+Updated Free List: 
+BA: 600; Sz: _____ -> BA: _____; Sz: _____ -> BA: _____; Sz: _____ -> BA: _____; Sz: _____"
+autowrap_mode = 2
+
+[node name="LineEdit_user" type="LineEdit" parent="."]
+offset_left = 217.0
+offset_top = 466.0
+offset_right = 895.0
+offset_bottom = 586.0
+script = ExtResource("2_gifui")
+
+[connection signal="text_submitted" from="LineEdit_user" to="obj_mainScreen" method="_on_line_edit_user_text_submitted"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://mkdnictuokjd"]
+
+[ext_resource type="Script" path="res://LineEdit_user.gd" id="2_1s17y"]
+[ext_resource type="Script" path="res://Control_prompt.gd" id="3_mxrpa"]
+
+[sub_resource type="GDScript" id="GDScript_7mojx"]
+script/source = "extends Node2D
+@onready var user = $LineEdit_user
+@onready var label = $Label_prompt
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	if user:
+		user.connect(\"text_submitted\", Callable(self, \"_on_line_edit_user_text_submitted\"))
+	else:
+		print(\"LineEdit_user node not found\")
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_line_edit_user_text_submitted(new_text):
+	
+	if label:
+		label.text = \"BA: \" + new_text + \"; Sz: _____ -> BA: _____; Sz: _____ -> BA: _____; Sz: _____ -> BA: _____; Sz: _____\"
+	else:
+		print(\"Label_prompt node not found\")
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="obj_mainScreen" type="Polygon2D" parent="."]
+position = Vector2(131, 60)
+scale = Vector2(313.777, 10.7118)
+color = Color(0, 0, 0.501961, 1)
+polygon = PackedVector2Array(-0.372876, -2.14716, 3.23797, -1.87032, 3.22203, 52.2705, -0.356941, 52.5505, -0.372876, 25.1042)
+script = SubResource("GDScript_7mojx")
+
+[node name="LineEdit_user" type="LineEdit" parent="."]
+offset_left = 217.0
+offset_top = 466.0
+offset_right = 895.0
+offset_bottom = 586.0
+script = ExtResource("2_1s17y")
+
+[node name="Control_prompt" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_mxrpa")
+
+[node name="Label_prompt" type="Label" parent="Control_prompt"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 81.0
+offset_right = 1122.0
+offset_bottom = 364.0
+text = "Consider a memory of size 8KB (8192 bytes) that allows dynamic, variable sized partitioning among processes and uses a linked list to keep track of free spaces (hereafter referred to as the free list) in the memory at any given time. Assume that there are 6 processes and assume that their memory size requirements (in bytes) are as given below:
+
+P1: 600,  P2: 700,  P3: 1300,  P4: 2900,  P5: 300,  P6: 500
+
+Assume that the initial state of the free list is as shown below (BA is the base address and Sz is the size of each free space):
+
+BA: 0; Sz: 1000 → BA: 1500; Sz: 700 → BA: 3600; Sz: 1500 → BA: 9200; Sz 300"
+autowrap_mode = 2
+
+[connection signal="text_submitted" from="LineEdit_user" to="obj_mainScreen" method="_on_line_edit_user_text_submitted"]
