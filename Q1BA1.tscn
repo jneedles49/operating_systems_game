@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://d280sf60b5aq"]
+
+[ext_resource type="Script" path="res://Question1_script.gd" id="1_ilvry"]
+[ext_resource type="Script" path="res://LineEdit_user.gd" id="2_3kyl7"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ilvry")
+
+[node name="obj_mainScreen" type="Polygon2D" parent="."]
+position = Vector2(126, 49)
+scale = Vector2(313.777, 10.7118)
+color = Color(0.0855214, 0.323137, 0.999976, 1)
+polygon = PackedVector2Array(-0.372876, -2.14716, 3.23797, -1.87032, 3.22203, 52.2705, -0.356941, 52.5505, -0.372876, 25.1042)
+
+[node name="Label_prompt" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 1109.0
+offset_bottom = 343.0
+text = "Consider a memory of size 8KB (8192 bytes) that allows dynamic, variable sized partitioning among processes and uses a linked list to keep track of free spaces (hereafter referred to as the free list) in the memory at any given time. Assume that there are 6 processes and assume that their memory size requirements (in bytes) are as given below:
+
+P1: 600,  P2: 700,  P3: 1300,  P4: 2900,  P5: 300,  P6: 500
+
+Assume that the initial state of the free list is as shown below (BA is the base address and Sz is the size of each free space):
+
+BA: 0; Sz: 1000 → BA: 1500; Sz: 700 → BA: 3600; Sz: 1500 → BA: 9200; Sz 300"
+autowrap_mode = 2
+
+[node name="LineEdit_user" type="LineEdit" parent="."]
+offset_left = 217.0
+offset_top = 466.0
+offset_right = 895.0
+offset_bottom = 586.0
+script = ExtResource("2_3kyl7")
+
+[connection signal="text_submitted" from="LineEdit_user" to="obj_mainScreen" method="_on_line_edit_user_text_submitted"]
