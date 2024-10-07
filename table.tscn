@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://cum4itwfgqfhw"]
+
+[ext_resource type="Script" path="res://rectangle.gd" id="1_s51ek"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_s51ek")
+
+[node name="LineEditOne" type="LineEdit" parent="."]
+offset_left = 63.0
+offset_top = 107.0
+offset_right = 573.0
+offset_bottom = 170.0
+
+[node name="LineEditTwo" type="LineEdit" parent="."]
+offset_left = 63.0
+offset_top = 221.0
+offset_right = 573.0
+offset_bottom = 284.0
+
+[node name="LineEditThree" type="LineEdit" parent="."]
+offset_left = 63.0
+offset_top = 337.0
+offset_right = 573.0
+offset_bottom = 400.0
+
+[node name="LineEditFour" type="LineEdit" parent="."]
+offset_left = 63.0
+offset_top = 461.0
+offset_right = 573.0
+offset_bottom = 524.0
+
+[node name="Label1" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 65.0
+offset_right = 547.0
+offset_bottom = 94.0
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 183.0
+offset_right = 547.0
+offset_bottom = 212.0
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 298.0
+offset_right = 547.0
+offset_bottom = 327.0
+text = " "
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 63.0
+offset_top = 418.0
+offset_right = 547.0
+offset_bottom = 447.0
+
+[connection signal="text_submitted" from="LineEditOne" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEditTwo" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEditThree" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEditFour" to="." method="_on_line_edit_text_submitted"]

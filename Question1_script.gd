@@ -2,8 +2,13 @@ extends Node2D
 @onready var user = $LineEdit_user
 @onready var label = $Label_prompt
 #limit number attempts
-#make sure it can generate questions and is correct w/ answers THEN make it more appealing 
+#make sure it can generate questions and is correct w/ answers THEN make it more appealing
+#show visual graph of the memory space being taken up
+#generating answers
+#code the algorithms 
+#BA is where partition starts and Sz is how much space it takes up
 var remaining_attempts = 3
+var correct_answers = [0, 600, 400, 1500, 700, 3600, 1500, 9200, 300]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +35,10 @@ func _on_line_edit_user_text_submitted(new_text):
 		
 
 func print_question():
-	return "BA: 0; Sz: 1000 → BA: 1500; Sz: 700 → BA: 3600; Sz: 1500 → BA: 9200; Sz: 300
-Use the next fit policy
+	return "Consider a memory of size 8KB (8192 bytes) that allows dynamic, variable sized partitioning among processes and uses a linked list to keep track of free spaces (hereafter referred to as the free list) in the memory at any given time. Assume that there are 6 processes and assume that their memory size requirements (in bytes) are as given below:
 
-If P1 is allocated, what is the BA?"
+P1: 600,  P2: 700,  P3: 1300,  P4: 2900,  P5: 300,  P6: 500
+
+Assume that the initial state of the free list is as shown below (BA is the base address and Sz is the size of each free space):
+
+BA: 0; Sz: 1000 → BA: 1500; Sz: 700 → BA: 3600; Sz: 1500 → BA: 9200; Sz 300"
