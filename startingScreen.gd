@@ -18,16 +18,16 @@ func _on_line_edit_text_submitted(new_text):
 	selector = editor.get_text()
 	print(selector)
 	if selector == '0':
-		setAlgorithm(0)
+		GlobalScript.selectedAlgorithm = 0
 		get_tree().change_scene_to_file("res://table.tscn")
 	elif selector == "1":
-		setAlgorithm(1)
+		GlobalScript.selectedAlgorithm = 1
 		get_tree().change_scene_to_file("res://table.tscn")
 	elif selector == "2":
-		setAlgorithm(2)
+		GlobalScript.selectedAlgorithm = 2
 		get_tree().change_scene_to_file("res://table.tscn")
 	elif selector == "3":
-		setAlgorithm(3)
+		GlobalScript.selectedAlgorithm = 3
 		get_tree().change_scene_to_file("res://table.tscn")
 	else:
 		label.text = "Please select a valid number. 
@@ -37,6 +37,4 @@ func _on_line_edit_text_submitted(new_text):
 	3- Worst Fit"
 		get_tree().reload_current_scene()
 		
-func setAlgorithm(selected):
-	if selected == '0':
-		
+

@@ -7,13 +7,14 @@ extends Node2D
 @export var source_rect = Rect2 (850.0, 100.0, 150.0, 500.0)
 @onready var label = [$Label1,$Label2,$Label3,$Label4]
 @onready var user_text = [$LineEditOne,$LineEditTwo,$LineEditThree,$LineEditFour]
+@onready var labelType = $LabelType
 
 #TODO: make sure to check for correctness within the algorithm
 #TODO: calculate # of points
 var default_font: Font = ThemeDB.fallback_font;
 
 var number_selector = RandomNumberGenerator.new()
-var selected_number = [number_selector.randi_range(1, 1500),number_selector.randi_range(1, 1500),number_selector.randi_range(1, 1500),number_selector.randi_range(1, 1500)]
+var selected_number = [number_selector.randi_range(1, 501),number_selector.randi_range(1, 501),number_selector.randi_range(1, 501),number_selector.randi_range(1, 501)]
 
 var first_selected_start_partition = number_selector.randi_range(0,500)
 var first_selected_end_partition = number_selector.randi_range(1,500)
@@ -41,7 +42,8 @@ var y_pos = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	label[0].text = "Where would the next partition be if the next memory had a size of " + str(selected_number[0]) + "?"
+	selectedAlgorithm(GlobalScript.selectedAlgorithm)
+	label[0].text = "Where would a process with a size of " + str(selected_number[0]) + " be placed?"
 	user_text[0].connect("text_entered", Callable(self, "_on_line_edit_text_submitted"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,7 +63,7 @@ func _on_line_edit_text_submitted(new_text):
 				user_value[0] = int(first_user_text)
 				scaled_value[0] = int(user_value[0]/5)
 				answerable[0] = false
-			label[1].text = "Where would the next partition be if the next memory had a size of " + str(selected_number[1]) + "?"
+			label[1].text = "Where would a process with a size of " + str(selected_number[1]) + " be placed?"
 			user_text[1].connect("text_entered", Callable(self, "_on_line_edit_text_submitted"))
 	
 	var second_user_text = user_text[1].get_text()
@@ -75,7 +77,7 @@ func _on_line_edit_text_submitted(new_text):
 				user_value[1] = int(second_user_text)
 				scaled_value[1] = int(user_value[1]/5)
 				answerable[1] = false
-			label[2].text = "Where would the next partition be if the next memory had a size of " + str(selected_number[2]) + "?"
+			label[2].text = "Where would a process with a size of " + str(selected_number[2]) + " be placed?"
 			user_text[2].connect("text_entered", Callable(self, "_on_line_edit_text_submitted"))
 
 	var third_user_text = user_text[2].get_text()             
@@ -89,7 +91,7 @@ func _on_line_edit_text_submitted(new_text):
 				user_value[2] = int(third_user_text)
 				scaled_value[2] = int(user_value[2]/5)
 				answerable[2] = false
-			label[3].text = "Where would the next partition be if the next memory had a size of " + str(selected_number[3]) + "?"
+			label[3].text = "Where would a process with a size of " + str(selected_number[3]) + " be placed?"
 			user_text[3].connect("text_entered", Callable(self, "_on_line_edit_text_submitted"))
 	
 	var fourth_user_text = user_text[3].get_text()
@@ -113,16 +115,13 @@ func _draw():
 	_draw_answers()
 	
 func _draw_answers():
-
-	#TODO: make answers appear one after the other 
-	#TODO: once they submit an answer, shouldnt be able to go back
 	#draw first answer
 	draw_line(Vector2(x_pos,y_pos+scaled_value[0]),Vector2(x_pos+50,y_pos+scaled_value[0]), Color.BLACK, -1.0, true)
 	draw_string(default_font, Vector2(x_pos,y_pos+scaled_value[0]-5), str(user_value[0]), HORIZONTAL_ALIGNMENT_CENTER,50, 18)
 	if(answered[0] == true):
 		draw_rect(Rect2(x_pos+50,y_pos+scaled_value[0],150,selected_number[0]/5), Color.CADET_BLUE, true, -1.0)
 		draw_line(Vector2(x_pos-50,y_pos+scaled_value[0]+selected_number[0]/5),Vector2(x_pos+50,y_pos+scaled_value[0]+selected_number[0]/5), Color.BLACK, -1.0, true)
-		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[0]+selected_number[0]/5),str(selected_number[0]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
+		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[0]+selected_number[0]/5),str(selected_number[0]+user_value[0]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
 		
 		
 	#draw second answer
@@ -131,7 +130,7 @@ func _draw_answers():
 	if(answered[1] == true):
 		draw_rect(Rect2(x_pos+50,y_pos+scaled_value[1],150,selected_number[1]/5), Color.CADET_BLUE, true, -1.0)
 		draw_line(Vector2(x_pos-50,y_pos+scaled_value[1]+selected_number[1]/5),Vector2(x_pos+50,y_pos+scaled_value[1]+selected_number[1]/5), Color.BLACK, -1.0, true)
-		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[1]+selected_number[1]/5),str(selected_number[1]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
+		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[1]+selected_number[1]/5),str(selected_number[1]+user_value[1]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
 	
 	#draw third answer
 	draw_line(Vector2(x_pos,y_pos+scaled_value[2]),Vector2(x_pos+50,y_pos+scaled_value[2]), Color.BLACK, -1.0, true)
@@ -139,7 +138,7 @@ func _draw_answers():
 	if(answered[2] == true):
 		draw_rect(Rect2(x_pos+50,y_pos+scaled_value[2],150,selected_number[2]/5), Color.CADET_BLUE, true, -1.0)
 		draw_line(Vector2(x_pos-50,y_pos+scaled_value[2]+selected_number[2]/5),Vector2(x_pos+50,y_pos+scaled_value[2]+selected_number[2]/5), Color.BLACK, -1.0, true)
-		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[2]+selected_number[2]/5),str(selected_number[2]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
+		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[2]+selected_number[2]/5),str(selected_number[2]+user_value[2]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
 	
 	#draw fourth answer
 	draw_line(Vector2(x_pos,y_pos+scaled_value[3]),Vector2(x_pos+50,y_pos+scaled_value[3]), Color.BLACK, -1.0, true)
@@ -147,7 +146,7 @@ func _draw_answers():
 	if(answered[3] == true):
 		draw_rect(Rect2(x_pos+50,y_pos+scaled_value[3],150,selected_number[3]/5), Color.CADET_BLUE, true, -1.0)
 		draw_line(Vector2(x_pos-50,y_pos+scaled_value[3]+selected_number[3]/5),Vector2(x_pos+50,y_pos+scaled_value[3]+selected_number[3]/5), Color.BLACK, -1.0, true)
-		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[3]+selected_number[3]/5),str(selected_number[3]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
+		draw_string(default_font, Vector2(x_pos-50,y_pos+scaled_value[3]+selected_number[3]/5),str(selected_number[3]+user_value[3]), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
 		
 func  _draw_partitions():
 	if first_selected_end_partition < first_selected_start_partition:
@@ -225,5 +224,17 @@ func  _draw_partitions():
 		draw_string(default_font, Vector2(x_pos+250,y_pos+scaled_end_partition), str(fifth_selected_end_partition), HORIZONTAL_ALIGNMENT_CENTER, 50, 18)
 		drawn[4] = true;
 		queue_redraw()
-
+func selectedAlgorithm(int):
+	if GlobalScript.selectedAlgorithm == 0:
+		labelType.text = "You are practicing: First Fit
+		Use N/A if there is not a valid answer."
+	if GlobalScript.selectedAlgorithm == 1:
+		labelType.text = "You are practicing: Next Fit
+		Use N/A if there is not a valid answer."
+	if GlobalScript.selectedAlgorithm == 2:
+		labelType.text = "You are practicing: Best Fit
+		Use N/A if there is not a valid answer."
+	if GlobalScript.selectedAlgorithm == 3:
+		labelType.text = "You are practicing: Worst Fit
+		Use N/A if there is not a valid answer."
 
