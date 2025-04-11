@@ -6,21 +6,40 @@
 script = ExtResource("1_psu7q")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 223.0
-offset_top = 94.0
-offset_right = 950.0
-offset_bottom = 269.0
+offset_left = 89.0
+offset_top = 65.0
+offset_right = 710.0
+offset_bottom = 348.0
 text = "Press the corresponding number to the algorithm you would like to practice:
 
 0- First Fit
 1- Next Fit 
 2- Best Fit
-3- Worst Fit"
+3- Worst Fit
+
+Press and hold R to restart
+Press and hold B to come back here
+
+Created by Josh Needles"
 
 [node name="LineEdit" type="LineEdit" parent="."]
-offset_left = 476.0
-offset_top = 351.0
-offset_right = 620.0
-offset_bottom = 445.0
+offset_left = 710.0
+offset_top = 51.0
+offset_right = 787.0
+offset_bottom = 107.0
+
+[node name="StudentName" type="LineEdit" parent="."]
+offset_left = 311.0
+offset_top = 394.0
+offset_right = 835.0
+offset_bottom = 425.0
+
+[node name="StudentLabel" type="Label" parent="."]
+offset_left = 89.0
+offset_top = 394.0
+offset_right = 288.0
+offset_bottom = 417.0
+text = "Please enter your name: "
 
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="StudentName" to="." method="_on_student_name_text_submitted"]
